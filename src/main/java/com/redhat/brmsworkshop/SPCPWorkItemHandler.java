@@ -9,7 +9,6 @@ import org.drools.process.instance.WorkItemHandler;
 import org.drools.runtime.StatefulKnowledgeSession;
 import org.drools.runtime.process.WorkItem;
 import org.drools.runtime.process.WorkItemManager;
-import org.drools.runtime.rule.FactHandle;
 
 public class SPCPWorkItemHandler implements WorkItemHandler{
 
@@ -31,7 +30,7 @@ public class SPCPWorkItemHandler implements WorkItemHandler{
 		System.out.println("SCPC Score: " + randomScore);
 
 		FactType factType = ksession.getKnowledgeBase().getFactType("cleartech", "Customer");
-		Collection<FactHandle> factHandles = ksession.getFactHandles(new ClassObjectFilter(factType.getFactClass()));
+		Collection<Object> factHandles = ksession.getObjects(new ClassObjectFilter(factType.getFactClass()));
 		Object fact = factHandles.toArray()[0];
 		factType.set(fact, "scpcScore", randomScore);
 		
