@@ -24,13 +24,15 @@ public class Main {
 		StatefulKnowledgeSession ksession = knowledgeBase
 				.newStatefulKnowledgeSession();
 
+		startScannerService();
+		
 		FactType factType = knowledgeBase.getFactType("cleartech", "Customer");
 		Object fact = factType.newInstance();
 		factType.set(fact, "age", 28);
 		ksession.insert(fact);
 
 		ksession.getWorkItemManager().registerWorkItemHandler("SCPC",
-				new SPCPWorkItemHandler());
+				new SPCPWorkItemHandler(ksession));
 
 		ksession.startProcess("cleartech.CreditProcess");
 
