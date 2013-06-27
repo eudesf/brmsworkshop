@@ -16,31 +16,35 @@ public class Main {
 	}
 
 	private void launch() throws Exception {
-		
-		KnowledgeAgent knowledgeAgent = KnowledgeAgentFactory.newKnowledgeAgent("MyAgent");
+
+		KnowledgeAgent knowledgeAgent = KnowledgeAgentFactory
+				.newKnowledgeAgent("MyAgent");
 		knowledgeAgent.applyChangeSet(new ClassPathResource("changeset.xml"));
 		KnowledgeBase knowledgeBase = knowledgeAgent.getKnowledgeBase();
-		StatefulKnowledgeSession ksession = knowledgeBase.newStatefulKnowledgeSession();
-		
+		StatefulKnowledgeSession ksession = knowledgeBase
+				.newStatefulKnowledgeSession();
+
 		FactType factType = knowledgeBase.getFactType("cleartech", "Customer");
 		Object fact = factType.newInstance();
 		factType.set(fact, "age", 28);
 		ksession.insert(fact);
 
-		ksession.getWorkItemManager().registerWorkItemHandler("SCPC", new SPCPWorkItemHandler());
-		
+		ksession.getWorkItemManager().registerWorkItemHandler("SCPC",
+				new SPCPWorkItemHandler());
+
 		ksession.startProcess("cleartech.CreditProcess");
-		
-		
+
+		System.out.println("aprovado? -> " + factType.get(fact, "approved"));
 	}
 
-	private void startScannerService() throws Exception {
-		ResourceChangeScannerConfiguration configuration = ResourceFactory.getResourceChangeScannerService().newResourceChangeScannerConfiguration();
+	private void startScannerService() {
+		ResourceChangeScannerConfiguration configuration = ResourceFactory
+				.getResourceChangeScannerService()
+				.newResourceChangeScannerConfiguration();
 		configuration.setProperty("drools.resource.scanner.interval", "10");
-		ResourceFactory.getResourceChangeScannerService().configure(configuration);
+		ResourceFactory.getResourceChangeScannerService().configure(
+				configuration);
 		ResourceFactory.getResourceChangeNotifierService().start();
 		ResourceFactory.getResourceChangeScannerService().start();
 	}
-	
-
 }
