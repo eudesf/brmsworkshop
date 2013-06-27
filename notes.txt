@@ -1,0 +1,5 @@
+jboss-brms.war/WEB-INF/lib
+==========================
+mvn install:install-file -DgroupId=org.drools -DartifactId=drools-core -Dversion=5.3.1.BRMS -DgeneratePom=true -Dfile=drools-core-5.3.1.BRMS.jar -Dpackaging=jar
+mvn install:install-file -DgroupId=org.drools -DartifactId=knowledge-api -Dversion=5.3.1.BRMS -DgeneratePom=true -Dfile=knowledge-api-5.3.1.BRMS.jar -Dpackaging=jar
+mvn install:install-file -DgroupId=org.drools -DartifactId=drools-compiler -Dversion=5.3.1.BRMS -DgeneratePom=true -Dfile=drools-compiler-5.3.1.BRMS.jar -Dpackaging=jar
